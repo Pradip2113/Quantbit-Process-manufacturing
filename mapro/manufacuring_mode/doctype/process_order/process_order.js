@@ -24,7 +24,7 @@ frappe.ui.form.on('Process Order', {
 			start_btn.addClass('btn-primary');
 		}
 		if(!frm.doc.__islocal && frm.doc.status == 'In Process'){
-			var finish_btn = frm.add_custom_button(__('Complete'), function(){
+			var finish_btn = frm.add_custom_button(__('Confermation Qty'), function(){
 				prompt_for_qty(frm, "finished_products", "Enter Produced Quantity", true, function () {
 					if(frm.doc.scrap){
 							prompt_for_qty(frm, "scrap", "Enter Scrap Quantity", false, function() {
