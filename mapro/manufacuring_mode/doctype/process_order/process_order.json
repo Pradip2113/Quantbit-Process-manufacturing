@@ -10,9 +10,9 @@
  "field_order": [
   "section_break_1",
   "naming_series",
+  "process_name",
   "workstation",
   "process_type",
-  "process_name",
   "column_break_6",
   "status",
   "department",
@@ -55,6 +55,7 @@
    "options": "Manufacturing Department"
   },
   {
+   "fetch_from": "process_name.process_type",
    "fieldname": "process_type",
    "fieldtype": "Link",
    "label": "Process Type",
@@ -80,12 +81,14 @@
    "options": "Draft\nSubmitted\nIn Process\nCompleted\nCancelled"
   },
   {
+   "fetch_from": "process_name.workstation",
    "fieldname": "workstation",
    "fieldtype": "Link",
    "label": "Workstation",
    "options": "Workstation"
   },
   {
+   "fetch_from": "process_name.costing_method",
    "fieldname": "costing_method",
    "fieldtype": "Select",
    "label": "Costing Method",
@@ -200,7 +203,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-09 17:49:36.563655",
+ "modified": "2023-02-24 12:01:50.670793",
  "modified_by": "Administrator",
  "module": "manufacuring mode",
  "name": "Process Order",

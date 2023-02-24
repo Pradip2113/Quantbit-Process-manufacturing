@@ -13,3 +13,22 @@ frappe.ui.form.on('Process Definition', {
 		});
 	}
 });
+
+frappe.ui.form.on('Process Item', {
+	rate(frm) {
+		frm.call({
+			method:'itrate',
+			doc: frm.doc,
+		});
+	}
+})
+frappe.ui.form.on('Process Item', {
+	quantity(frm) {
+		frm.call({
+			method:'itrate',
+			doc: frm.doc,
+		});
+	}
+})
+
+

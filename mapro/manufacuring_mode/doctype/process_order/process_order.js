@@ -1,3 +1,20 @@
+frappe.ui.form.on('Process Order Item', {
+	rate(frm) {
+		frm.call({
+			method:'itrate',
+			doc: frm.doc,
+		});
+	}
+})
+frappe.ui.form.on('Process Order Item', {
+	quantity(frm) {
+		frm.call({
+			method:'itrate',
+			doc: frm.doc,
+		});
+	}
+})
+
 
 frappe.ui.form.on('Process Order', {
     before_load: function (frm) {

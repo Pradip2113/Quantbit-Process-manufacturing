@@ -5,6 +5,7 @@ from frappe.model.document import Document
 from frappe.utils import get_datetime, time_diff_in_hours
 from frappe import _
 class ProcessOrder(Document):
+
 	@frappe.whitelist()
 	def on_submit(self):
 		if not self.wip_warehouse:
@@ -24,19 +25,62 @@ class ProcessOrder(Document):
 			frappe.throw(_("Cannot cancel because submitted Stock Entry \
 			{0} exists").format(stock_entry[0][0]))
 		frappe.db.set(self, 'status', 'Cancelled')
+
+
+	@frappe.whitelist()
+	def itrate(self,doctype):
+		for j in self.get('materials'):
+			j.amount=j.quantity*j.rate
+		for m in self.get('finished_products'):
+			m.amount=m.quantity*m.rate
+		for k in self.get('scrap'):
+			k.amount=k.quantity*k.rate
+			
 	@frappe.whitelist()
 	def get_process_details(self):
-		# Set costing_method
-		self.costing_method = frappe.db.get_value("Process Definition", self.process_name, "costing_method")
-		# Set Child Tables
-		process = frappe.get_doc("Process Definition", self.process_name)
-		if process:
-			if process.materials:
-				self.add_item_in_table(process.materials, "materials")
-			if process.finished_products:
-				self.add_item_in_table(process.finished_products, "finished_products")
-			if process.scrap:
-				self.add_item_in_table(process.scrap, "scrap")
+		doc=frappe.db.get_list('Process Definition')
+		for d in doc:
+			doc1=frappe.get_doc('Process Definition',d.name)
+			if(self.process_name==doc1.process_name):
+				for d1 in doc1.get("materials"):
+					self.append("materials",{
+							"item_name":d1.item,
+							"item":d1.item,
+							"quantity":d1.quantity,
+							"rate":d1.rate,
+							"yeild":d1.yeild,
+							"amount":d1.amount,
+							}
+						)
+				for d1 in doc1.get("finished_products"):
+					self.append("finished_products",{
+							"item":d1.item,
+							"quantity":d1.quantity,
+							"rate":d1.rate,
+							"yeild":d1.yeild,
+							"amount":d1.amount,
+							}
+						)
+				for d1 in doc1.get("scrap"):
+					self.append("scrap",{
+							"item":d1.item,
+							"quantity":d1.quantity,
+							"rate":d1.rate,
+							"yeild":d1.yeild,
+							"amount":d1.amount,
+							}
+						)
+		# # Set costing_method
+		# self.costing_method = frappe.db.get_value("Process Definition", self.process_name, "costing_method")
+		# # Set Child Tables
+		# process = frappe.get_doc("Process Definition", self.process_name)
+		# # if process:
+		# # 	if process.materials:
+		# # 		self.add_item_in_table(process.materials, "materials")
+		# # 	if process.finished_products:
+		# # 		self.add_item_in_table(process.finished_products, "finished_products")
+		# # 	if process.scrap:
+		# # 		self.add_item_in_table(process.scrap, "scrap")
 
 	@frappe.whitelist()			
 	def start_finish_processing(self, status):

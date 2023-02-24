@@ -8,7 +8,11 @@
  "engine": "InnoDB",
  "field_order": [
   "item",
-  "item_name"
+  "item_name",
+  "quantity",
+  "rate",
+  "yeild",
+  "amount"
  ],
  "fields": [
   {
@@ -24,12 +28,36 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Item Name"
+  },
+  {
+   "fieldname": "quantity",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "quantity"
+  },
+  {
+   "fieldname": "rate",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Rate"
+  },
+  {
+   "fieldname": "yeild",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Yeild"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Amount"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2023-01-04 14:31:19.469476",
+ "modified": "2023-02-23 10:30:40.370079",
  "modified_by": "Administrator",
  "module": "manufacuring mode",
  "name": "Process Item",
